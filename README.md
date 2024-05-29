@@ -48,4 +48,4 @@ This project is a personal finance management application that helps users track
 
 8. Access the application at http://localhost:3000 for the frontend and http://localhost:8000 for the backend API.
 
-9. 
+9. TBD

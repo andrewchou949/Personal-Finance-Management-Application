@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';  // Import the CSS file
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -24,21 +25,32 @@ const Login = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <TextField
-                label="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-            <TextField
-                label="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button type="submit">Login</Button>
-            {error && <p>{error}</p>}
-        </form>
+        <div className="login-container">
+            <div className="login-box">
+                <h1>Login</h1>
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        label="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        fullWidth
+                        margin="normal"
+                    />
+                    <TextField
+                        label="Password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        fullWidth
+                        margin="normal"
+                    />
+                    <Button type="submit" variant="contained" color="primary" fullWidth>
+                        Login
+                    </Button>
+                    {error && <p className="error-message">{error}</p>}
+                </form>
+            </div>
+        </div>
     );
 };
 

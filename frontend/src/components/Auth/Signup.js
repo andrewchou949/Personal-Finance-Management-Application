@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import './Signup.css';  // Import the CSS file
 
 const Signup = () => {
     const [username, setUsername] = useState('');
@@ -29,27 +30,40 @@ const Signup = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <TextField
-                label="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-            <TextField
-                label="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <TextField
-                label="Confirm Password"
-                type="password"
-                value={password2}
-                onChange={(e) => setPassword2(e.target.value)}
-            />
-            <Button type="submit">Sign Up</Button>
-            {error && <p>{error}</p>}
-        </form>
+        <div className="signup-container">
+            <div className="signup-box">
+                <h1>Sign Up</h1>
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        label="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        fullWidth
+                        margin="normal"
+                    />
+                    <TextField
+                        label="Password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        fullWidth
+                        margin="normal"
+                    />
+                    <TextField
+                        label="Confirm Password"
+                        type="password"
+                        value={password2}
+                        onChange={(e) => setPassword2(e.target.value)}
+                        fullWidth
+                        margin="normal"
+                    />
+                    <Button type="submit" variant="contained" color="primary" fullWidth>
+                        Sign Up
+                    </Button>
+                    {error && <p className="error-message">{error}</p>}
+                </form>
+            </div>
+        </div>
     );
 };
 
