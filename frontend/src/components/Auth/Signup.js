@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import './Signup.css';  // Import the CSS file
+import './Signup.css';
 
 const Signup = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [password2, setPassword2] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (password !== password2) {
+        if (password !== confirmPassword) {
             setError('Passwords do not match');
             return;
         }
         try {
-            await axios.post('http://127.0.0.1:8000/api/accounts/register/', {
+            const response = await axios.post('http://127.0.0.1:8000/api/accounts/register/', {
                 username,
                 password,
-                password2,
+                password2: confirmPassword,
             });
-            navigate('/login');
+            console.log(response.data);
+            // Handle successful registration
         } catch (error) {
+            console.error(error.response ? error.response.data : error.message);
             setError('Registration failed');
         }
     };
@@ -52,8 +52,8 @@ const Signup = () => {
                     <TextField
                         label="Confirm Password"
                         type="password"
-                        value={password2}
-                        onChange={(e) => setPassword2(e.target.value)}
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                         fullWidth
                         margin="normal"
                     />

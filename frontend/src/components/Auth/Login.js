@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import './Login.css';  // Import the CSS file
+import './Login.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,10 +15,11 @@ const Login = () => {
                 username,
                 password,
             });
-            localStorage.setItem('token', response.data.token);
-            navigate('/dashboard');
+            console.log(response.data);
+            // Handle successful login
         } catch (error) {
-            setError('Invalid credentials');
+            console.error(error.response ? error.response.data : error.message);
+            setError('Login failed');
         }
     };
 

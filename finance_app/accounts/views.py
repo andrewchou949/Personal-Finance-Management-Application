@@ -5,7 +5,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from .serializers import RegisterSerializer, LoginSerializer
 from django.contrib.auth import authenticate
-# For protected view testing
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
@@ -14,10 +13,19 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
+    def create(self, request, *args, **kwargs):
+        print(request.data)  # Log the request data for debugging
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({"token": token.key}, status=201)
+
 class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
+        print(request.data)  # Log the request data for debugging
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = authenticate(username=serializer.data['username'], password=serializer.data['password'])
