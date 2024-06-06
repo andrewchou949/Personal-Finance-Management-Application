@@ -16,7 +16,9 @@ class RegisterView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         print(request.data)  # Log the request data for debugging
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        if not serializer.is_valid():
+            print(serializer.errors)  # Log the errors for debugging
+            return Response(serializer.errors, status=400)
         user = serializer.save()
         token, created = Token.objects.get_or_create(user=user)
         return Response({"token": token.key}, status=201)
@@ -27,7 +29,9 @@ class LoginView(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         print(request.data)  # Log the request data for debugging
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        if not serializer.is_valid():
+            print(serializer.errors)  # Log the errors for debugging
+            return Response(serializer.errors, status=400)
         user = authenticate(username=serializer.data['username'], password=serializer.data['password'])
         if user is not None:
             token, created = Token.objects.get_or_create(user=user)
