@@ -7,19 +7,24 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
+        setSuccess('');
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/accounts/login/', {
                 username,
                 password,
             });
-            console.log(response.data);
-            // Handle successful login
+            localStorage.setItem('token', response.data.token);
+            setSuccess('Login successful');
+            // Redirect to dashboard or protected view
+            console.log('Login successful');
         } catch (error) {
+            setError('Invalid credentials');
             console.error(error.response ? error.response.data : error.message);
-            setError('Login failed');
         }
     };
 
@@ -47,6 +52,7 @@ const Login = () => {
                         Login
                     </Button>
                     {error && <p className="error-message">{error}</p>}
+                    {success && <p className="success-message">{success}</p>}
                 </form>
             </div>
         </div>

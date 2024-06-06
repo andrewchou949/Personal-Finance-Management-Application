@@ -8,24 +8,39 @@ const Signup = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
+        setSuccess('');
         if (password !== confirmPassword) {
             setError('Passwords do not match');
             return;
         }
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/accounts/register/', {
+            await axios.post('http://127.0.0.1:8000/api/accounts/register/', {
                 username,
                 password,
                 password2: confirmPassword,
             });
-            console.log(response.data);
-            // Handle successful registration
+            setSuccess('Registration successful');
+            // Clear the form
+            setUsername('');
+            setPassword('');
+            setConfirmPassword('');
         } catch (error) {
+            if (error.response) {
+                const backendErrors = error.response.data;
+                if (backendErrors.password) {
+                    setError(backendErrors.password[0]);
+                } else {
+                    setError('Registration failed');
+                }
+            } else {
+                setError('Registration failed');
+            }
             console.error(error.response ? error.response.data : error.message);
-            setError('Registration failed');
         }
     };
 
@@ -61,6 +76,7 @@ const Signup = () => {
                         Sign Up
                     </Button>
                     {error && <p className="error-message">{error}</p>}
+                    {success && <p className="success-message">{success}</p>}
                 </form>
             </div>
         </div>
