@@ -37,7 +37,7 @@ const Transactions = () => {
                     Authorization: `Token ${token}`
                 }
             });
-            setCategories(response.data);
+            setCategories(response.data.map(cat => cat.name));
         } catch (error) {
             console.error(error);
         }
@@ -88,8 +88,8 @@ const Transactions = () => {
                         onChange={(e) => setCategory(e.target.value)}
                     >
                         <option value="">Select Category</option>
-                        {categories.map((cat) => (
-                            <option key={cat.id} value={cat.id}>{cat.name}</option>
+                        {categories.map((cat, index) => (
+                            <option key={index} value={cat}>{cat}</option>
                         ))}
                     </select>
                     <button type="submit">Add Transaction</button>
