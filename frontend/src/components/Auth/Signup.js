@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import './Signup.css';
 
 const Signup = () => {
@@ -9,6 +10,7 @@ const Signup = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,6 +31,8 @@ const Signup = () => {
             setUsername('');
             setPassword('');
             setConfirmPassword('');
+            // Redirect to login page
+            navigate('/login');
         } catch (error) {
             if (error.response) {
                 const backendErrors = error.response.data;
@@ -78,6 +82,7 @@ const Signup = () => {
                     {error && <p className="error-message">{error}</p>}
                     {success && <p className="success-message">{success}</p>}
                 </form>
+                <p>Already have an account? <Link to="/login">Login</Link></p>
             </div>
         </div>
     );

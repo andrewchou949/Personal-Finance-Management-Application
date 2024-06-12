@@ -1,12 +1,18 @@
 import React from 'react';
-import './Dashboard.css';  // Import the CSS file
+import { Link } from 'react-router-dom';
+import './Dashboard.css';
 
 const Dashboard = () => {
     return (
         <div className="dashboard-container">
             <div className="dashboard-box">
                 <h1>Dashboard</h1>
-                <p>Welcome to the dashboard!</p>
+                <nav>
+                    <ul>
+                        <li><Link to="/transactions">Transactions</Link></li>
+                        {/* Add more links here for other features */}
+                    </ul>
+                </nav>
             </div>
         </div>
     );

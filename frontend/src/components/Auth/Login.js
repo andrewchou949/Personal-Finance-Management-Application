@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        setSuccess('');
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/accounts/login/', {
                 username,
                 password,
             });
-            localStorage.setItem('token', response.data.token);
-            setSuccess('Login successful');
-            // Redirect to dashboard or protected view
-            console.log('Login successful');
+            const { token } = response.data;
+            localStorage.setItem('token', token);
+            // Redirect to dashboard page
+            navigate('/dashboard');
         } catch (error) {
-            setError('Invalid credentials');
+            setError('Login failed');
             console.error(error.response ? error.response.data : error.message);
         }
     };
@@ -52,7 +52,6 @@ const Login = () => {
                         Login
                     </Button>
                     {error && <p className="error-message">{error}</p>}
-                    {success && <p className="success-message">{success}</p>}
                 </form>
             </div>
         </div>
