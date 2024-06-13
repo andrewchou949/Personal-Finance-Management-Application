@@ -23,9 +23,10 @@ const Transactions = () => {
                     Authorization: `Token ${token}`
                 }
             });
+            console.log('Transactions fetched:', response.data);
             setTransactions(response.data);
         } catch (error) {
-            console.error(error);
+            console.error('Error fetching transactions:', error);
         }
     };
 
@@ -37,33 +38,40 @@ const Transactions = () => {
                     Authorization: `Token ${token}`
                 }
             });
+            console.log('Categories fetched:', response.data);
             setCategories(response.data.map(cat => cat.name));
         } catch (error) {
-            console.error(error);
+            console.error('Error fetching categories:', error);
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
-        try {
-            await axios.post('http://127.0.0.1:8000/api/transactions/', {
-                amount,
-                description,
-                category
-            }, {
-                headers: {
-                    Authorization: `Token ${token}`
-                }
-            });
-            fetchTransactions();
+        const data = {
+            amount: parseFloat(amount),
+            description: description,
+            category: category
+        };
+        console.log('Submitting transaction:', data);
+
+        axios.post('http://127.0.0.1:8000/api/transactions/', data, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log('Transaction added:', response.data);
             setAmount('');
             setDescription('');
             setCategory('');
-        } catch (error) {
-            setError('Failed to add transaction');
-            console.error(error);
-        }
+            fetchTransactions();
+        })
+        .catch(error => {
+            setError('Failed to add transaction.');
+            console.error('Error adding transaction:', error);
+        });
     };
 
     return (
