@@ -116,19 +116,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Add this to your settings.py file
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'django_debug.log',
+        'console': {
+            'class': 'logging.StreamHandler',
         },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
+            'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': True,
         },

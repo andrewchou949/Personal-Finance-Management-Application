@@ -54,7 +54,7 @@ const Transactions = () => {
             category: category
         };
         console.log('Submitting transaction:', data);
-
+    
         axios.post('http://127.0.0.1:8000/api/transactions/', data, {
             headers: {
                 'Authorization': `Token ${token}`,
@@ -70,7 +70,7 @@ const Transactions = () => {
         })
         .catch(error => {
             setError('Failed to add transaction.');
-            console.error('Error adding transaction:', error);
+            console.error('Error adding transaction:', error.response.data);
         });
     };
 
