@@ -15,8 +15,12 @@ class TransactionListCreateView(generics.ListCreateAPIView):
         return Transaction.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        logger.info("Received data: %s", serializer.validated_data)
-        serializer.save(user=self.request.user)
+        try:
+            logger.info("Received data for transaction creation: %s", serializer.validated_data)
+            serializer.save(user=self.request.user)
+        except Exception as e:
+            logger.error("Error during transaction creation: %s", e)
+            raise
 
 class TransactionDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TransactionSerializer

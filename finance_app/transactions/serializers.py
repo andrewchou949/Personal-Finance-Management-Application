@@ -7,15 +7,15 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TransactionSerializer(serializers.ModelSerializer):
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
+
     class Meta:
         model = Transaction
-        fields = ['amount', 'description', 'category', 'date']
+        fields = '__all__'
 
     def validate(self, data):
-        if 'category' not in data or data['category'] is None:
-            raise serializers.ValidationError("Category is required.")
         if 'amount' not in data or data['amount'] <= 0:
-            raise serializers.ValidationError("Amount must be greater than zero.")
-        if 'description' not in data or data['description'] == "":
-            raise serializers.ValidationError("Description is required.")
+            raise serializers.ValidationError({"amount": "Amount must be greater than zero."})
+        if 'category' not in data or not data['category']:
+            raise serializers.ValidationError({"category": "Category must be specified."})
         return data
