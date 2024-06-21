@@ -1,0 +1,25 @@
+.transaction-list-container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+form {
+    margin: 20px 0;
+}
+
+form input, form select, form button {
+    margin: 5px;
+    padding: 10px;
+}

@@ -11,8 +11,23 @@ const Transactions = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
+        fetchTransactions();
         fetchCategories();
     }, []);
+
+    const fetchTransactions = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/api/transactions/', {
+                headers: {
+                    Authorization: `Token ${token}`
+                }
+            });
+            setTransactions(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const fetchCategories = async () => {
         const token = localStorage.getItem('token');
@@ -31,56 +46,41 @@ const Transactions = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
-        const selectedCategory = categories.find(cat => cat.name === category);
-        const data = {
-            amount: parseFloat(amount),
-            description: description,
-            category: selectedCategory ? selectedCategory.id : null
-        };
-        console.log('Submitting transaction:', data);
-
-        axios.post('http://127.0.0.1:8000/api/transactions/', data, {
+        axios.post('http://127.0.0.1:8000/api/transactions/', {
+            amount,
+            description,
+            category
+        }, {
             headers: {
-                'Authorization': `Token ${token}`,
+                Authorization: `Token ${token}`,
                 'Content-Type': 'application/json'
             }
         })
         .then(response => {
-            console.log('Transaction added:', response.data);
-            setTransactions(prevTransactions => [...prevTransactions, response.data]);
             setAmount('');
             setDescription('');
             setCategory('');
+            fetchTransactions();
         })
         .catch(error => {
             setError('Failed to add transaction.');
-            if (error.response) {
-                console.error('Error adding transaction:', error.response.data);
-            } else {
-                console.error('Error adding transaction:', error.message);
-            }
+            console.error('There was an error adding the transaction!', error);
         });
     };
 
-    const handleDelete = async (transactionId) => {
+    const handleDelete = (id) => {
         const token = localStorage.getItem('token');
-        try {
-            await axios.delete(`http://127.0.0.1:8000/api/transactions/${transactionId}/`, {
-                headers: {
-                    Authorization: `Token ${token}`
-                }
-            });
-            setTransactions(transactions.filter(transaction => transaction.id !== transactionId));
-        } catch (error) {
-            console.error('Failed to delete transaction:', error);
-        }
-    };
-
-    const handleAmountChange = (e) => {
-        const value = e.target.value;
-        if (/^\d*\.?\d*$/.test(value)) {
-            setAmount(value);
-        }
+        axios.delete(`http://127.0.0.1:8000/api/transactions/${id}/`, {
+            headers: {
+                Authorization: `Token ${token}`
+            }
+        })
+        .then(response => {
+            fetchTransactions();
+        })
+        .catch(error => {
+            console.error('There was an error deleting the transaction!', error);
+        });
     };
 
     return (
@@ -89,10 +89,10 @@ const Transactions = () => {
                 <h1>Transactions</h1>
                 <form onSubmit={handleSubmit}>
                     <input
-                        type="text"
+                        type="number"
                         placeholder="Amount"
                         value={amount}
-                        onChange={handleAmountChange}
+                        onChange={(e) => setAmount(e.target.value)}
                     />
                     <input
                         type="text"
@@ -106,7 +106,7 @@ const Transactions = () => {
                     >
                         <option value="">Select Category</option>
                         {categories.map((cat) => (
-                            <option key={cat.id} value={cat.name}>{cat.name}</option>
+                            <option key={cat.id} value={cat.id}>{cat.name}</option>
                         ))}
                     </select>
                     <button type="submit">Add Transaction</button>
@@ -115,7 +115,7 @@ const Transactions = () => {
                 <ul>
                     {transactions.map((transaction) => (
                         <li key={transaction.id}>
-                            {transaction.description}: ${transaction.amount}
+                            {transaction.description}: ${transaction.amount} ({transaction.category})
                             <button onClick={() => handleDelete(transaction.id)}>Delete</button>
                         </li>
                     ))}
