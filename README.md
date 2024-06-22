@@ -19,6 +19,7 @@ This project is a personal finance management application that helps users track
     ```bash
     python -m venv env
     source env/bin/activate
+    pip install -r requirements.txt
 
 3. Framework to be used:
     Django is primarily being used as a fullstack framework
@@ -30,7 +31,7 @@ This project is a personal finance management application that helps users track
     npm install
 
 5. Configure environment variables for the backend:
-    The env variable will be loaded with dotenv package
+	• The environment variables will be loaded with the dotenv package
 
 6. Apply Database migration:
     ```bash
@@ -46,4 +47,6 @@ This project is a personal finance management application that helps users track
         cd frontend
         npm start
 
-8. 
+8. Open your browser and navigate to:
+    • Backend: http://127.0.0.1:8000/
+	• Frontend: http://localhost:3000/
