@@ -9,13 +9,11 @@
 .transactions-box {
     background-color: white;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
 }
 
 .transactions-box h1 {
-    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -28,14 +26,14 @@
 .transactions-box form select {
     margin-bottom: 10px;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .transactions-box form button {
     padding: 10px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     background-color: #007bff;
     color: white;
     cursor: pointer;
@@ -45,25 +43,41 @@
     background-color: #0056b3;
 }
 
+.transaction-list-link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.transaction-list-link:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
 .transactions-box ul {
+    margin-top: 20px;
     list-style-type: none;
     padding: 0;
 }
 
 .transactions-box ul li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 10px;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .transactions-box ul li button {
+    margin-left: 10px;
     padding: 5px 10px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     background-color: #dc3545;
     color: white;
     cursor: pointer;

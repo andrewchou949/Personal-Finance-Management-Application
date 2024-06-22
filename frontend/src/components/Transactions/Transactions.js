@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Transactions.css';
 
@@ -120,6 +121,7 @@ const Transactions = () => {
                         </li>
                     ))}
                 </ul>
+                <Link to="/transaction-list" className="transaction-list-link">View All Transactions</Link>
             </div>
         </div>
     );
