@@ -5,6 +5,7 @@ import './Transactions.css';
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
+    const [sessionTransactions, setSessionTransactions] = useState([]);
     const [amount, setAmount] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
@@ -62,6 +63,7 @@ const Transactions = () => {
             setDescription('');
             setCategory('');
             fetchTransactions();
+            setSessionTransactions([...sessionTransactions, response.data]);
         })
         .catch(error => {
             setError('Failed to add transaction.');
@@ -78,10 +80,16 @@ const Transactions = () => {
         })
         .then(response => {
             fetchTransactions();
+            setSessionTransactions(sessionTransactions.filter(transaction => transaction.id !== id));
         })
         .catch(error => {
             console.error('There was an error deleting the transaction!', error);
         });
+    };
+
+    const getCategoryName = (id) => {
+        const category = categories.find(cat => cat.id === id);
+        return category ? category.name : 'Unknown';
     };
 
     return (
@@ -113,10 +121,11 @@ const Transactions = () => {
                     <button type="submit">Add Transaction</button>
                 </form>
                 {error && <p className="error-message">{error}</p>}
+                <h2>Session Transactions</h2>
                 <ul>
-                    {transactions.map((transaction) => (
+                    {sessionTransactions.map((transaction) => (
                         <li key={transaction.id}>
-                            {transaction.description}: ${transaction.amount} ({transaction.category})
+                            {transaction.description}: ${transaction.amount} ({getCategoryName(transaction.category)})
                             <button onClick={() => handleDelete(transaction.id)}>Delete</button>
                         </li>
                     ))}

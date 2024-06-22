@@ -4,6 +4,7 @@ import './TransactionList.css';
 
 const TransactionList = () => {
     const [transactions, setTransactions] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [selectedTransaction, setSelectedTransaction] = useState(null);
     const [formData, setFormData] = useState({
         amount: '',
@@ -13,6 +14,7 @@ const TransactionList = () => {
 
     useEffect(() => {
         fetchTransactions();
+        fetchCategories();
     }, []);
 
     const fetchTransactions = async () => {
@@ -27,6 +29,25 @@ const TransactionList = () => {
         } catch (error) {
             console.error(error);
         }
+    };
+
+    const fetchCategories = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/api/categories/', {
+                headers: {
+                    Authorization: `Token ${token}`
+                }
+            });
+            setCategories(response.data.map(cat => ({ id: cat.id, name: cat.name })));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const getCategoryName = (id) => {
+        const category = categories.find(cat => cat.id === id);
+        return category ? category.name : 'Unknown';
     };
 
     const handleEdit = (transaction) => {
@@ -85,10 +106,10 @@ const TransactionList = () => {
                 <tbody>
                     {transactions.map((transaction) => (
                         <tr key={transaction.id}>
-                            <td>{transaction.date}</td>
+                            <td>{new Date(transaction.date).toLocaleString()}</td>
                             <td>{transaction.description}</td>
                             <td>{transaction.amount}</td>
-                            <td>{transaction.category}</td>
+                            <td>{getCategoryName(transaction.category)}</td>
                             <td>
                                 <button onClick={() => handleEdit(transaction)}>Edit</button>
                                 <button onClick={() => handleDelete(transaction.id)}>Delete</button>
@@ -101,7 +122,7 @@ const TransactionList = () => {
                 <form onSubmit={handleSubmit}>
                     <h2>Edit Transaction</h2>
                     <input
-                        type="text"
+                        type="number"
                         placeholder="Amount"
                         value={formData.amount}
                         onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
@@ -117,10 +138,9 @@ const TransactionList = () => {
                         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                     >
                         <option value="">Select Category</option>
-                        {/* Add options dynamically if you have categories in your backend */}
-                        <option value="Expense">Expense</option>
-                        <option value="Income">Income</option>
-                        <option value="Deposit">Deposit</option>
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>{cat.name}</option>
+                        ))}
                     </select>
                     <button type="submit">Save</button>
                 </form>
