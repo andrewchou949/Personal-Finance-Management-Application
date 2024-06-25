@@ -88,11 +88,6 @@ Personal-Finance-Management-Application
 ```
 
 ### Components
-- **Client/**: Contains the frontend React application.
-- **Server/**: Contains the backend Flask application.
-- **transcribe.py**: The main file for voice recognition and summary features.
-- **app.py**: The entry point for the backend server.
-
 - **backend/**: Contains the Django backend application.
 - **frontend/**: Contains the React frontend application.
 
