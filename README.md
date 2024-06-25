@@ -3,6 +3,13 @@
 ## Overview
 This project is a personal finance management application that helps users track their expenses and detect fraudulent transactions using machine learning.
 
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+
 ## Features
 - User authentication and profile management
 - Expense tracking and categorization
@@ -10,43 +17,89 @@ This project is a personal finance management application that helps users track
 - Machine learning-based fraud detection alerts
 
 ## Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/andrewchou949/Personal-Finance-Management-Application.git
-   cd personal-finance-management
 
+### Prerequisites
+- Python
+- Node.js
+- npm (Node Package Manager)
+- PostgreSQL
+
+### Steps
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/andrewchou949/Personal-Finance-Management-Application.git
+    cd personal-finance-management
+    ```
 2. Set up a virtual environment and install dependencies:
     ```bash
     python -m venv env
     source env/bin/activate
     pip install -r requirements.txt
+    ```
 
 3. Framework to be used:
-    Django is primarily being used as a fullstack framework
-    Postgresql is the main database for the project
+   - Django is primarily being used as a fullstack framework
+   - PostgreSQL is the main database for the project
 
-4. Set up frontend
+4. Set up the frontend:
     ```bash
     cd frontend
     npm install
+    ```
 
 5. Configure environment variables for the backend:
-	• The environment variables will be loaded with the dotenv package
+    - The environment variables will be loaded with the dotenv package
 
-6. Apply Database migration:
+6. Apply database migrations:
     ```bash
     cd backend
     python manage.py makemigrations
     python manage.py migrate
+    ```
 
-7. Start the development servers:
-    ```bash
-    Backend:
+## Usage
+1. Start the development servers:
+    - Backend:
+        ```bash
         python manage.py runserver
-    Frontend:
+        ```
+    - Frontend:
+        ```bash
         cd frontend
         npm start
+        ```
 
-8. Open your browser and navigate to:
-    • Backend: http://127.0.0.1:8000/
-	• Frontend: http://localhost:3000/
+2. Open your browser and navigate to:
+    - Backend: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+    - Frontend: [http://localhost:3000/](http://localhost:3000/)
+
+## Project Structure
+```plaintext
+Personal-Finance-Management-Application
+├── backend                      # Django backend
+│   ├── manage.py                # Django management script
+│   ├── ...                      # Other backend files
+├── frontend                     # React frontend
+│   ├── package.json             # Node.js package configuration
+│   ├── ...                      # Other frontend files
+├── .gitignore                   # Git ignore file
+├── README.md                    # Project readme
+├── requirements.txt             # Python dependencies
+```
+
+### Components
+- **Client/**: Contains the frontend React application.
+- **Server/**: Contains the backend Flask application.
+- **transcribe.py**: The main file for voice recognition and summary features.
+- **app.py**: The entry point for the backend server.
+
+- **backend/**: Contains the Django backend application.
+- **frontend/**: Contains the React frontend application.
+
+## Contributing
+Contributions are welcome! Please follow these steps:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Commit your changes (`git commit -m 'Add some feature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Open a pull request.
