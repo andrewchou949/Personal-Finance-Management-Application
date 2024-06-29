@@ -77,7 +77,7 @@ This project is a personal finance management application that helps users track
 ```plaintext
 Personal-Finance-Management-Application
 ├── backend                      # Django backend
-│   ├── manage.py                # Django management script
+│   ├── manage.py                # Django management script for backend endpoint hosting
 │   ├── ...                      # Other backend files
 ├── frontend                     # React frontend
 │   ├── package.json             # Node.js package configuration
