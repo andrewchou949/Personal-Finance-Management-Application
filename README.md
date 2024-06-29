@@ -72,6 +72,17 @@ This project is a personal finance management application that helps users track
 2. Open your browser and navigate to:
     - Backend: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
     - Frontend: [http://localhost:3000/](http://localhost:3000/)
+    Make sure the two localhost port are unoccupied!
+    - Show what process is using the port:
+        ```bash
+        lsof -i :8000
+        lsof -i :3000
+        ```
+    - Kill the process to free the port:
+        ```bash
+        kill process PID
+        ```
+        **Make sure to change PID to your process ID**
 
 ## Project Structure
 ```plaintext
