@@ -76,10 +76,10 @@ This project is a personal finance management application that helps users track
 ## Project Structure
 ```plaintext
 Personal-Finance-Management-Application
-├── backend                      # Django backend
+├── backend                      # Django backend + endpoint
 │   ├── manage.py                # Django management script for backend endpoint hosting
 │   ├── ...                      # Other backend files
-├── frontend                     # React frontend
+├── frontend                     # React frontend UI
 │   ├── package.json             # Node.js package configuration
 │   ├── ...                      # Other frontend files
 ├── .gitignore                   # Git ignore file
