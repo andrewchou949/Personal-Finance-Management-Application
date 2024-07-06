@@ -30,9 +30,9 @@ const Dashboard = () => {
 
             const formattedData = Object.values(chartData).map(item => ({
                 ...item,
-                income: item.income.toFixed(2),
-                expense: item.expense.toFixed(2),
-                deposit: item.deposit.toFixed(2)
+                income: parseFloat(item.income).toFixed(2),
+                expense: parseFloat(item.expense).toFixed(2),
+                deposit: parseFloat(item.deposit).toFixed(2)
             }));
 
             setData(formattedData);
@@ -45,6 +45,10 @@ const Dashboard = () => {
         fetchData();
     }, []);
 
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
     return (
         <div className="dashboard-container">
             <h1>Dashboard</h1>
@@ -53,7 +57,7 @@ const Dashboard = () => {
                 <XAxis dataKey="date" />
                 <YAxis />
                 <Tooltip />
-                <Legend />
+                <Legend formatter={(value) => capitalizeFirstLetter(value)} />
                 <Bar dataKey="income" fill="#8884d8" />
                 <Bar dataKey="expense" fill="#82ca9d" />
                 <Bar dataKey="deposit" fill="#ffc658" />
