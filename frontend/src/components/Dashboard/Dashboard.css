@@ -1,10 +1,19 @@
 .dashboard-container {
+    text-align: center;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 20px;
+    flex-direction: column;
+    height: 100vh;
 }
 
-.chart {
-    margin-top: 20px;
+.recharts-tooltip-wrapper {
+    background-color: white !important;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.dashboard-chart {
+    margin: auto;
 }
