@@ -1,24 +1,10 @@
-/* dashboard.css */
 .dashboard-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px;
+    padding: 20px;
 }
 
-.dashboard-container h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
-.dashboard-container .chart {
-    width: 80%;
-    max-width: 800px;
-    margin-bottom: 40px;
-}
-
-@media (max-width: 768px) {
-    .dashboard-container .chart {
-        width: 100%;
-    }
+.chart {
+    margin-top: 20px;
 }
