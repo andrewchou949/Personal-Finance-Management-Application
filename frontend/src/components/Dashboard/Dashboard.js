@@ -18,7 +18,7 @@ const Dashboard = () => {
             const transactions = response.data;
             const chartData = transactions.reduce((acc, transaction) => {
                 const date = transaction.date.split('T')[0];
-                const category = transaction.category === 14 ? 'income' : transaction.category === 15 ? 'deposit' : 'expense'; // Assuming 14 is Income and 15 is Deposit
+                const category = transaction.category === 14 ? 'income' : transaction.category === 15 ? 'deposit' : 'expense';
 
                 if (!acc[date]) {
                     acc[date] = { date, income: 0, expense: 0, deposit: 0 };
@@ -28,7 +28,14 @@ const Dashboard = () => {
                 return acc;
             }, {});
 
-            setData(Object.values(chartData));
+            const formattedData = Object.values(chartData).map(item => ({
+                ...item,
+                income: item.income.toFixed(2),
+                expense: item.expense.toFixed(2),
+                deposit: item.deposit.toFixed(2)
+            }));
+
+            setData(formattedData);
         } catch (error) {
             console.error(error);
         }
