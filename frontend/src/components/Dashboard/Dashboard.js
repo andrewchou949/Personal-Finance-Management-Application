@@ -18,24 +18,17 @@ const Dashboard = () => {
             const transactions = response.data;
             const chartData = transactions.reduce((acc, transaction) => {
                 const date = transaction.date.split('T')[0];
-                const category = transaction.category === 14 ? 'income' : transaction.category === 15 ? 'deposit' : 'expense';
+                const category = transaction.category === 14 ? 'Income' : transaction.category === 15 ? 'Deposit' : 'Expense'; // Assuming 14 is Income and 15 is Deposit
 
                 if (!acc[date]) {
-                    acc[date] = { date, income: 0, expense: 0, deposit: 0 };
+                    acc[date] = { date, Income: 0, Expense: 0, Deposit: 0 };
                 }
 
                 acc[date][category] += parseFloat(transaction.amount);
                 return acc;
             }, {});
 
-            const formattedData = Object.values(chartData).map(item => ({
-                ...item,
-                income: parseFloat(item.income).toFixed(2),
-                expense: parseFloat(item.expense).toFixed(2),
-                deposit: parseFloat(item.deposit).toFixed(2)
-            }));
-
-            setData(formattedData);
+            setData(Object.values(chartData));
         } catch (error) {
             console.error(error);
         }
@@ -45,8 +38,19 @@ const Dashboard = () => {
         fetchData();
     }, []);
 
-    const capitalizeFirstLetter = (string) => {
-        return string.charAt(0).toUpperCase() + string.slice(1);
+    const CustomTooltip = ({ payload, label }) => {
+        if (!payload || !payload.length) return null;
+
+        return (
+            <div className="custom-tooltip">
+                <p className="label">{`${label}`}</p>
+                {payload.map((entry) => (
+                    <p key={entry.dataKey} className="intro" style={{ color: entry.fill }}>
+                        {`${entry.dataKey} : ${entry.value.toFixed(2)}`}
+                    </p>
+                ))}
+            </div>
+        );
     };
 
     return (
@@ -56,11 +60,11 @@ const Dashboard = () => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
                 <YAxis />
-                <Tooltip />
-                <Legend formatter={(value) => capitalizeFirstLetter(value)} />
-                <Bar dataKey="income" fill="#8884d8" />
-                <Bar dataKey="expense" fill="#82ca9d" />
-                <Bar dataKey="deposit" fill="#ffc658" />
+                <Tooltip content={<CustomTooltip />} />
+                <Legend />
+                <Bar dataKey="Income" fill="#8884d8" />
+                <Bar dataKey="Expense" fill="#82ca9d" />
+                <Bar dataKey="Deposit" fill="#ffc658" />
             </BarChart>
         </div>
     );
