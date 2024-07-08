@@ -84,6 +84,7 @@ This project is a personal finance management application that helps users track
         kill process PID
         ```
         **Make sure to change PID to your process ID**
+    **Or just use different port directly, but make sure to change the port URL in frontend portion to reflect**
 
 ## Project Structure
 ```plaintext
