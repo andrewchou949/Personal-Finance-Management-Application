@@ -107,6 +107,7 @@ Personal-Finance-Management-Application
 ### Components
 - **backend/**: Contains the Django backend application (Includes fraud detection: TBD).
 - **frontend/**: Contains the React frontend application (Mainly simple UI for user and alerts system: TBD).
+- **fraud_detection/**: Contains the model training python scripts and dataset
 
 ## Contributing
 Contributions are welcome! Please follow these steps:
