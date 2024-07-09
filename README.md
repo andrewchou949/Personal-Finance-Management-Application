@@ -95,7 +95,6 @@ Personal-Finance-Management-Application
 ├── frontend                     # React frontend UI
 │   ├── package.json             # Node.js package configuration
 │   ├── ...                      # Other frontend files
-data feeding and model training
 ├── fraud_detection              # Model Training and Dataset files
 │   ├── data                     # Data folders
 │   ├── models                   # Store .pkl model files to be used further
