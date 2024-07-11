@@ -33,3 +33,8 @@ This directory contains the necessary files and instructions for training the fr
 ## Model Training
 1. Use scikit-learn to train a machine learning model on the prepared data.
 2. Save the trained model using joblib for later use in the application.
+
+### Components
+- **data/**: Contains data in csv format.
+- **models/**: Contains the trained models.
+- **fraud_detection.py**: python script to utilize data to train model
