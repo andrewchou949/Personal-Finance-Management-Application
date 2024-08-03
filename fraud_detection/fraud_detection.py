@@ -7,7 +7,7 @@ import joblib # saving the training to a result (.pkl)
 
 # Load the dataset
 # dataset name may change, since data is not collected yet!
-data = pd.read_csv('data/dataset.csv')
+data = pd.read_csv('data/creditcard.csv')
 
 # Handle missing values
 data = data.dropna()
