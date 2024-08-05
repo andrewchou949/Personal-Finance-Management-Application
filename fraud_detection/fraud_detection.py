@@ -10,7 +10,12 @@ import joblib # saving the training to a result (.pkl)
 data = pd.read_csv('data/creditcard.csv')
 
 # Handle missing values
-data = data.dropna()
+# data = data.dropna()
+
+# preprocessing columns
+data['Normalized_Amount'] = StandardScaler().fit_transform(data[['Amount']])
+data['Normalized_Time'] = StandardScaler().fit_transform(data[['Time']])
+data = data.drop(['Amount', 'Time'], axis=1)
 
 # Encode categorical variables
 # category indicator name may cahnge!
