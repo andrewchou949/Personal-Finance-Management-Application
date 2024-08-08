@@ -35,4 +35,4 @@ print(classification_report(y_test, y_pred))
 print(f'Accuracy: {accuracy_score(y_test, y_pred)}')
 
 # Save the trained model to be used later on
-joblib.dump(model, 'model/fraud_detection_model.pkl')
+joblib.dump(model, 'models/fraud_detection_model.pkl')
