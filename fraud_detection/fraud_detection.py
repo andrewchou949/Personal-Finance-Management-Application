@@ -12,30 +12,26 @@ data = pd.read_csv('data/creditcard.csv')
 # Handle missing values
 # data = data.dropna()
 
-# preprocessing columns
+# preprocessing columns: drop the 'Time' column, standardize 'Amount' only
 data['Normalized_Amount'] = StandardScaler().fit_transform(data[['Amount']])
-data['Normalized_Time'] = StandardScaler().fit_transform(data[['Time']])
-data = data.drop(['Amount', 'Time'], axis=1)
+data = data.drop(['Amount', 'Time'], axis=1) # axis=1 drop up down direction
 
-# Encode categorical variables
-# category indicator name may cahnge!
-data = pd.get_dummies(data, columns=['category'])
+# Features and target variable
+X = data.drop('Class', axis=1)
+y = data['Class'] # the target variable (fraud or not_fraud!)
 
-# Feature scaling
-scaler = StandardScaler()
-data[['amount']] = scaler.fit_transform(data[['amount']])
-
-# Split data into features (X) and target (y)
-X = data.drop('is_fraud', axis=1) # getting all columns except is_fraud (is_fraud target column may change)
-y = data['is_fraud']
-
-# Split data into training and testing sets
+# Split the data into training and testing sets
 # testing data is 20% / training is 80%
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train the model
-model = RandomForestClassifier()
+# Train a model
+model = RandomForestClassifier(random_state=42)
 model.fit(X_train, y_train)
 
+# Evaluate the model
+y_pred = model.predict(X_test)
+print(classification_report(y_test, y_pred))
+print(f'Accuracy: {accuracy_score(y_test, y_pred)}')
+
 # Save the trained model to be used later on
-joblib.dump(model, 'model/trained_model.pkl')
+joblib.dump(model, 'model/fraud_detection_model.pkl')
