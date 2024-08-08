@@ -52,7 +52,6 @@ The fraud detection model was trained using the credit card fraud detection data
 weighted avg       1.00      1.00      1.00     56962
 
 Accuracy: 0.9995611109160493
-
 ```
 These metrics indicate the performance of the model on the test set, showing high precision and recall for both fraud and non-fraud transactions.
 
