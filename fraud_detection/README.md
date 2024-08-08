@@ -37,6 +37,25 @@ This directory contains the necessary files and instructions for training the fr
     ```
 - But need to make sure that the creditcard.csv is present in the right folders and models folder exist (or you can adjust the directory manually).
 
+## Training Metrics
+The fraud detection model was trained using the credit card fraud detection dataset. Below are the metrics achieved during the training:
+
+### Model Accuracy
+```plaintext
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     56864
+           1       0.97      0.77      0.86        98
+
+    accuracy                           1.00     56962
+   macro avg       0.99      0.88      0.93     56962
+weighted avg       1.00      1.00      1.00     56962
+
+Accuracy: 0.9995611109160493
+
+```
+These metrics indicate the performance of the model on the test set, showing high precision and recall for both fraud and non-fraud transactions.
+
 ## Usage
 The trained model can be used in the Django application to predict fraudulent transactions. The model is loaded and used to make predictions in real-time.
 
