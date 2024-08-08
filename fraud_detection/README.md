@@ -7,6 +7,13 @@ This directory contains the necessary files and instructions for training the fr
 - **pandas**: Used for data manipulation and analysis.
 - **scikit-learn**: Used for building and training the machine learning model.
 
+## Dataset
+- Dataset: [Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+- Features:
+  - `V1` to `V28`: Principal Component Analysis (PCA) transformed features
+  - `Amount`: Transaction amount
+  - `Class`: Target variable (1 for fraudulent transactions, 0 for non-fraudulent transactions)
+
 ## Installation
 1. Ensure you have the necessary libraries installed:
    ```bash
@@ -18,23 +25,29 @@ This directory contains the necessary files and instructions for training the fr
     pip freeze > requirements.txt
     ```
 
-## Data Collection
-1.	Collect a large dataset of financial transactions, including both legitimate and fraudulent transactions.
-
-2.	The dataset should be in CSV format and contain the following columns:
-- transaction_id: Unique identifier for each transaction.
-- amount: The amount of the transaction.
-- category: The category of the transaction (e.g., income, expense, deposit).
-- is_fraud: Binary indicator (1 for fraudulent transactions, 0 for legitimate transactions).
-
 ## Data Preparation
 1. Load and preprocess the data using pandas. This includes handling missing values, encoding categorical variables, and splitting the data into training and testing sets.
 
 ## Model Training
 1. Use scikit-learn to train a machine learning model on the prepared data.
 2. Save the trained model using joblib for later use in the application.
+**Note:** with the provided fraud_detection.py files, simply run:
+    ```bash
+    python fraud_detection.py
+    ```
+- But need to make sure that the creditcard.csv is present in the right folders and models folder exist (or you can adjust the directory manually).
+
+## Usage
+The trained model can be used in the Django application to predict fraudulent transactions. The model is loaded and used to make predictions in real-time.
 
 ## Components
 - **data/**: Contains data in csv format.
 - **models/**: Contains the trained models.
 - **fraud_detection.py**: python script to utilize data to train model
+- **load_model.py**: to load the trained pkl format model.
+
+## Contributing
+Feel free to submit issues or pull requests if you find any bugs or have suggestions for improvements.
+
+## License
+This project is licensed under the MIT License.
