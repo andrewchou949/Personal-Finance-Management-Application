@@ -53,7 +53,7 @@ weighted avg       1.00      1.00      1.00     56962
 
 Accuracy: 0.9995611109160493
 ```
-These metrics indicate the performance of the model on the test set, showing high precision and recall for both fraud and non-fraud transactions.
+These metrics indicate the performance of the model on the test set, showing high precision and recall for both fraud and non-fraud transactions, and achieving accuracy close to 100% (99.96%).
 
 ## Usage
 The trained model can be used in the Django application to predict fraudulent transactions. The model is loaded and used to make predictions in real-time.
