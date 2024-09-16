@@ -9,5 +9,5 @@ class CategorySerializer(serializers.ModelSerializer):
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
-        fields = ['id', 'user', 'category', 'amount', 'description', 'date']
+        fields = ['id', 'amount', 'description', 'date', 'is_fraudulent']
         read_only_fields = ['user']
