@@ -118,4 +118,4 @@ Contributions are welcome! Please follow these steps:
 5. Open a pull request.
 
 
-### Projects Progress has been halted due to personal reasons. Will be continued in the future.
+## Projects Progress has been halted due to personal reasons. Will be continued in the future.
